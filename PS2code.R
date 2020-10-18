@@ -12,9 +12,10 @@ dataset <- raw_data %>% select(caseid, total_children, sex, feelings_life, marit
 #dataset$average_hours_worked[dataset$average_hours_worked == "40.1 to 50.0 hours"] <- 40
 #dataset$average_hours_worked[dataset$average_hours_worked == "50.1 hours and more"] <- 50
 
-#create a multiple linear model (total_children vs average_hours_worked)
-model1 <- lm(feelings_life ~ total_children + average_hours_worked, data = dataset)
-summary(model1)
+#create a single linear model (total_children and feelings_life)
+model1 <- lm(feelings_life ~ total_children, data = dataset)
+#create a multiple linear model (average_hours_worked and feelings_life)
+model2 <- lm(feelings_life ~ average_hours_worked, data = dataset)
 #show a box plot for total_children and feelings_life
 tcplot <- dataset %>% select(caseid, total_children, feelings_life)
 tcplot <-tcplot[order(tcplot$total_children),]
@@ -38,9 +39,10 @@ boxplot(ahplot$feelings_life ~ ahplot$average_hours_worked)
 #dataset$income_respondent[dataset$income_respondent == "$75,000 to $99,999"] <- 99999
 #dataset$income_respondent[dataset$income_respondent == "$125,000 and more"] <- 125000
 
-#create a multiple linear model (income_respondent vs self_rated_health)
-model2 <- lm(feelings_life ~ income_respondent + self_rated_health, data = dataset)
-summary(model2)
+#create a multiple linear model (income_respondent and feelings_life)
+model3 <- lm(feelings_life ~ income_respondent, data = dataset)
+#create a multiple linear model (self_rated_health and feelings_life)
+model4 <- lm(feelings_life ~ self_rated_health, data = dataset)
 #show a box plot for income_respondent and feelings_life
 irplot <- dataset %>% select(caseid, income_respondent, feelings_life)
 irplot <-irplot[order(irplot$income_respondent),]
@@ -57,9 +59,8 @@ boxplot(srplot$feelings_life ~ srplot$self_rated_health)
 #dataset$marital_status[dataset$marital_status == "$75,000 to $99,999"] <- 99999
 #dataset$marital_status[dataset$marital_status == "$125,000 and more"] <- 125000
 
-#create a single linear model (marital_status)
-model3 <- lm(feelings_life ~ marital_status, data = dataset)
-summary(model3)
+#create a multiple linear model (marital_status)
+model5 <- lm(feelings_life ~ marital_status, data = dataset)
 #show a box plot for marital_status and feelings_life
 msplot <- dataset %>% select(caseid, marital_status, feelings_life)
 msplot <-msplot[order(msplot$marital_status),]
@@ -69,3 +70,5 @@ boxplot(msplot$feelings_life ~ msplot$marital_status)
 summary(model1)
 summary(model2)
 summary(model3)
+summary(model4)
+summary(model5)
