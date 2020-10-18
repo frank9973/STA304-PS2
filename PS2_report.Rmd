@@ -1,0 +1,137 @@
+---
+title: "PS2 report"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+library(janitor)
+library(tidyverse)
+library(tinytex)
+tinytex::install_tinytex()
+# Load the data dictionary and the raw data and correct the variable names
+raw_data <- read_csv("gss.csv")
+dataset <- raw_data %>% select(caseid, total_children, sex, feelings_life, marital_status, average_hours_worked, income_respondent, self_rated_health)
+```
+
+## Abstract
+
+This project’s purpose is to analyze the potential influence of personal life conditions on life happiness based on the Canadian General Social Survey. More specifically, we focus on how these factors could affect people’s “feeling about life as a whole”. Statistical models are used in the analyses, including [……]. The analysis results leading to the conclusion of that [……].
+
+## Introduction
+
+With the rapid development of modern cities, people’s quality of life seems to be improving, there are more convenient transportations, communication equipment, more diverse form of entertainments. But it seems that people’s pace of life has become urgent up. Many people live a two-point life while have to find a balance of work and family. There is very little time left for personal enjoyment. Many people start thinking and asking: Do I really like my life? How is my feeling about my life as a whole? We are also part of the busy crowd, so we are interested in the factors that influence people’s happiness in life. Canadian General Social Survey recorded information about the basic living conditions of Canadian people and how they feel about their current life. In our study, we will choose several of these variables we think may have an impact on life satisfaction. We will use statistical models to help us visualize the relationship between these variables Xs’ and our Y value, the score of “feelings about life as a whole”. To find out eventually, how people’s different life conditions may bring positive or negative influences to their life satisfaction. More detailed information about the variables and models will be further explained in the sections after.
+
+## Data
+Based on our focus, we choose the dataset from the General social survey on Family (cycle 31), 2017. These data are provided by Statistics Canada under the terms of the Data Liberation Initiative (DLI) license. The survey involved 20602 respondents in total and recorded 81 variables of various aspects, including the family background, immigration history, marital status, child rearing, living arrangement, occupation, working condition and family income, health situation, and life satisfaction. In order to analyze the effect of personal life situation on the life satisfaction
+score, we select the variables below:
+
+sex: the sex of the respondent;
+
+marital_status: the marital status of the respondent;
+
+total_children: the total number of children the respondent has, as self-reported;
+
+average_hours_worked: the average number of hours worked per week;
+
+income_respondent:  the total income of respondent received in the calendar year 2016 from all sources before income taxes and deductions;
+
+self_rated_health: self rated health of respondent, ranging from excellent to poor;
+
+feelings_life: feelings about life as a whole using a scale of 0 to 10, where 0 means "Very dissatisfied" and 10 means "Very satisfied".
+
+
+## Results
+Firstly, we create two multiple linear models for feelings_life with total_children vs average_hours_worked and income_respondent vs self_rated_health. Then we also create a single linear model fore feeling_life with marital_status. In addition, we make five different bar plots to reflect the impact of these five different factors on people's feelings_life.
+```{r}
+#dataset$average_hours_worked <- as.character(dataset$average_hours_worked)
+#dataset$average_hours_worked[dataset$average_hours_worked == "0.1 to 29.9 hours"] <- "0.1-29.9"
+#dataset$average_hours_worked[dataset$average_hours_worked == "30.0 to 40.0 hours"] <- "30-40"
+#dataset$average_hours_worked[dataset$average_hours_worked == "40.1 to 50.0 hours"] <- "40-50"
+#dataset$average_hours_worked[dataset$average_hours_worked == "50.1 hours and more"] <- "50.1up"
+#dataset$self_rated_health <- as.character(dataset$self_rated_health)
+#dataset$self_rated_health[dataset$self_rated_health == "Don't know"] <- "DK"
+#dataset$self_rated_health[dataset$self_rated_health == "Poor"] <- 1
+#dataset$self_rated_health[dataset$self_rated_health == "Fair"] <- 2
+#dataset$self_rated_health[dataset$self_rated_health == "Good"] <- 3
+#dataset$self_rated_health[dataset$self_rated_health == "Very good"] <- 4
+#dataset$self_rated_health[dataset$self_rated_health == "Excellent"] <- 5
+#dataset$income_respondent <- as.character(data$income_respondent)
+#dataset$income_respondent[dataset$income_respondent == "Less than $25,000"] <- "25000"
+#dataset$income_respondent[dataset$income_respondent == "$25,000 to $49,999"] <- "25000-49999"
+#dataset$income_respondent[dataset$income_respondent == "$50,000 to $74,999"] <- "50000-74999"
+#dataset$income_respondent[dataset$income_respondent == "$75,000 to $99,999"] <- "75000-99999"
+#dataset$income_respondent[dataset$income_respondent == "$125,000 and more"] <- "125000"
+
+#create a multiple linear model (income_respondent vs self_rated_health)
+
+#create a single linear model (total_children and feelings_life)
+model1 <- lm(feelings_life ~ total_children, data = dataset)
+summary(model1)
+#show a box plot for total_children and feelings_life
+tcplot <- dataset %>% select(caseid, total_children, feelings_life)
+tcplot <-tcplot[order(tcplot$total_children),]
+boxplot(tcplot$feelings_life ~ tcplot$total_children)
+```
+
+The above shows the information for model1(a single linear model for feelings_life with total_children)
+The plot1 is a barplot for feelings_life with total_children.
+
+```{r}
+#create a multiple linear model (average_hours_worked and feelings_life)
+model2 <- lm(feelings_life ~ average_hours_worked, data = dataset)
+summary(model2)
+#show a box plot for average_hours_worked and feelings_life
+ahplot <- dataset %>% select(caseid, average_hours_worked, feelings_life)
+ahplot <-ahplot[order(ahplot$average_hours_worked),]
+boxplot(ahplot$feelings_life ~ ahplot$average_hours_worked)
+```
+
+The above shows the information for model2(a multiple linear model for feelings_life with average_hours_worked).
+The plot2 is a barplot for feelings_life with average_hours_worked.
+
+```{r}
+#create a multiple linear model (income_respondent and feelings_life)
+model3 <- lm(feelings_life ~ income_respondent, data = dataset)
+summary(model3)
+#show a box plot for income_respondent and feelings_life
+irplot <- dataset %>% select(caseid, income_respondent, feelings_life)
+irplot <-irplot[order(irplot$income_respondent),]
+boxplot(irplot$feelings_life ~ irplot$income_respondent)
+```
+
+The above shows the information for model3(a multiple linear model for feelings_life with income_respondent)
+The plot3 is a barplot for feelings_life with income_respondent.
+
+```{r}
+#create a multiple linear model (self_rated_health and feelings_life)
+model4 <- lm(feelings_life ~ self_rated_health, data = dataset)
+summary(model4)
+#show a box plot for self_rated_health and feelings_life
+srplot <- dataset %>% select(caseid, self_rated_health, feelings_life)
+srplot <-srplot[order(srplot$self_rated_health),]
+boxplot(srplot$feelings_life ~ srplot$self_rated_health)
+```
+
+The above shows the information for model4(a multiple linear model for feelings_life with self_rated_health)
+The plot4 is a barplot for feelings_life with self_rated_health
+
+```{r}
+#create a multiple linear model (marital_status)
+model5 <- lm(feelings_life ~ marital_status, data = dataset)
+summary(model5)
+#show a box plot for marital_status and feelings_life
+msplot <- dataset %>% select(caseid, marital_status, feelings_life)
+msplot <-msplot[order(msplot$marital_status),]
+boxplot(msplot$feelings_life ~ msplot$marital_status)
+```
+
+The above shows the information for model5(a multiple linear model for feelings_life with marital_status)
+The plot5 is a barplot for feelings_life with marital_status.
+
+
+
+
+
