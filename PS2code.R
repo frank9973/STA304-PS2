@@ -64,3 +64,8 @@ summary(model3)
 msplot <- dataset %>% select(caseid, marital_status, feelings_life)
 msplot <-msplot[order(msplot$marital_status),]
 boxplot(msplot$feelings_life ~ msplot$marital_status)
+
+#summary these models
+summary(model1)
+summary(model2)
+summary(model3)
