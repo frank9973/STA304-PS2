@@ -25,22 +25,18 @@ This project’s purpose is to analyze the potential influence of personal life 
 With the rapid development of modern cities, people’s quality of life seems to be improving, there are more convenient transportations, communication equipment, more diverse form of entertainments. But it seems that people’s pace of life has become urgent up. Many people live a two-point life while have to find a balance of work and family. There is very little time left for personal enjoyment. Many people start thinking and asking: Do I really like my life? How is my feeling about my life as a whole? We are also part of the busy crowd, so we are interested in the factors that influence people’s happiness in life. Canadian General Social Survey recorded information about the basic living conditions of Canadian people and how they feel about their current life. In our study, we will choose several of these variables we think may have an impact on life satisfaction. We will use statistical models to help us visualize the relationship between these variables Xs’ and our Y value, the score of “feelings about life as a whole”. To find out eventually, how people’s different life conditions may bring positive or negative influences to their life satisfaction. More detailed information about the variables and models will be further explained in the sections after.
 
 ## Data
-Based on our focus, we choose the dataset from the General social survey on Family (cycle 31), 2017. These data are provided by Statistics Canada under the terms of the Data Liberation Initiative (DLI) license. The survey involved 20602 respondents in total and recorded 81 variables of various aspects, including the family background, immigration history, marital status, child rearing, living arrangement, occupation, working condition and family income, health situation, and life satisfaction. In order to analyze the effect of personal life situation on the life satisfaction
-score, we select the variables below:
 
-sex: the sex of the respondent;
+  We chose to analyze the General social survey data on Family (cycle 31), 2017 from the U of T library, provided by Statistics Canada under the terms of the Data Liberation Initiative (DLI) license. The survey collected a large amount of data for each selected respondent as well as some information about each member of the respondent’s household, including age, sex, family origins, conjugal history, the respondent’s children, financial condition, labor market activity, subjective well-being and feelings about life as a whole. 
+  The target population of this survey includes all persons 15 years of age and older in Canada. It used the redesigned GSS frame, integrating data from sources of both landline and cellular phone numbers available to Statistics Canada and the Address Register. The sample population was obtained with stratification. Provinces and many Census Metropolitan Areas (CMAs) were considered as separate stratum, and each record in the survey frame was assigned to a stratum. Then a simple random sample without replacement of records was performed in each stratum. Any household with no telephone or at least one person 15 years of age or older was excluded from the survey. Respondents were then randomly selected from eligible households and participated in the survey through telephone interview. The survey involved 20602 respondents in total and recorded 81 variables.
+  We downloaded the raw csv dataset for STATA, cleaned and prepared it in R with the gss_cleaning file provided ahead alongside the problem set question. The gss_cleaning file converts the raw dataset into a dictionary type dataset with renamed variables. In order to analyze the effect of personal life situation on the life satisfaction score, we select the variables below:
++ sex: the sex of the respondent;
++ marital_status: the marital status of the respondent;
++ total_children: the total number of children the respondent has, as self-reported;
++ average_hours_worked: the average number of hours worked per week;
++ income_respondent:  the total income of respondent received in the calendar year 2016 from all sources before income taxes and deductions;
++ self_rated_health: self rated health of respondent, ranging from excellent to poor;
++ feelings_life: feelings about life as a whole using a scale of 0 to 10, where 0 means "very dissatisfied" and 10 means "very satisfied".
 
-marital_status: the marital status of the respondent;
-
-total_children: the total number of children the respondent has, as self-reported;
-
-average_hours_worked: the average number of hours worked per week;
-
-income_respondent:  the total income of respondent received in the calendar year 2016 from all sources before income taxes and deductions;
-
-self_rated_health: self rated health of respondent, ranging from excellent to poor;
-
-feelings_life: feelings about life as a whole using a scale of 0 to 10, where 0 means "Very dissatisfied" and 10 means "Very satisfied".
 
 
 ## Results
