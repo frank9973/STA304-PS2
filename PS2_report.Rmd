@@ -15,10 +15,13 @@ raw_data <- read_csv("gss.csv")
 dataset <- raw_data %>% select(caseid, total_children, sex, feelings_life, marital_status, average_hours_worked, income_respondent, self_rated_health)
 ```
 
-## Title of your Report
+# Title of your Report
 
-# Jiaheng Li, Heye Liu, Yan Wang, Yuxin Yang
-# October 18, 2020
+Jiaheng Li, Heye Liu, Yan Wang, Yuxin Yang
+October 18, 2020
+
+## Code and data supporting the analysis is available at the repository:
+https://github.com/frank9973/STA304-PS2.git  
 
 
 ## Abstract
@@ -50,6 +53,7 @@ With the rapid development of modern cities, people’s quality of life seems to
 + self_rated_health: self rated health of respondent, ranging from excellent to poor;
 
 + feelings_life: feelings about life as a whole using a scale of 0 to 10, where 0 means "very dissatisfied" and 10 means "very satisfied".
+
 
 
 
