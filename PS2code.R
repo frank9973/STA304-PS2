@@ -6,7 +6,7 @@ raw_data <- read_csv("gss.csv")
 dataset <- raw_data %>% select(caseid, age, total_children, sex, feelings_life, marital_status, average_hours_worked, income_respondent, 
                             self_rated_health)
 dataset$self_rated_health <- as.character(dataset$self_rated_health)
-dataset$self_rated_health[dataset$self_rated_mental_health == "Don't know"] <- 0
+dataset$self_rated_health[dataset$self_rated_health == "Don't know"] <- 0
 dataset$self_rated_health[dataset$self_rated_health == "Poor"] <- 1
 dataset$self_rated_health[dataset$self_rated_health == "Fair"] <- 2
 dataset$self_rated_health[dataset$self_rated_health == "Good"] <- 3
@@ -18,13 +18,16 @@ dataset$self_rated_health[dataset$self_rated_health == "Excellent"] <- 5
 #dataset$income_respondent[dataset$income_respondent == "$50,000 to $74,999"] <- 74999
 #dataset$income_respondent[dataset$income_respondent == "$75,000 to $99,999"] <- 99999
 #dataset$income_respondent[dataset$income_respondent == "$125,000 and more"] <- 125000
-
 #create a multiple linear model (income_respondent and feelings_life)
 model1 <- lm(feelings_life ~ age + self_rated_health, data = dataset)
 model2 <- lm(feelings_life ~ age * self_rated_health, data = dataset)
 #show a box plot for income_respondent and feelings_life
+dataset$age[dataset$age <= 20] <- "0-20"
+dataset$age[20.1 <= dataset$age  & dataset$age<= 40] <- "20-40"
+dataset$age[40.1 <= dataset$age  & dataset$age<= 60] <- "40-60"
+dataset$age[60.1 <= dataset$age  & dataset$age<= 80] <- "60-80"
+dataset$age[80.1 <= dataset$age] <- "80-100"
 irplot <- dataset %>% select(caseid, age, feelings_life)
-irplot <-irplot[order(irplot$age),]
 boxplot(irplot$feelings_life ~ irplot$age)
 #show a box plot for self_rated_health and feelings_life
 srplot <- dataset %>% select(caseid, self_rated_health, feelings_life)
