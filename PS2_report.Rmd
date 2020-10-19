@@ -1,9 +1,8 @@
 ---
-title: "PS2 report"
-output:
-  pdf_document: default
-  html_document:
-    df_print: paged
+title: "Title of Your Report"
+author: "Jiaheng Li, Heye Liu, Yan Wang, Yuxin Yang"
+date: "18/10/2020"
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -16,6 +15,12 @@ raw_data <- read_csv("gss.csv")
 dataset <- raw_data %>% select(caseid, total_children, sex, feelings_life, marital_status, average_hours_worked, income_respondent, self_rated_health)
 ```
 
+## Title of your Report
+
+# Jiaheng Li, Heye Liu, Yan Wang, Yuxin Yang
+# October 18, 2020
+
+
 ## Abstract
 
 This project’s purpose is to analyze the potential influence of personal life conditions on life happiness based on the Canadian General Social Survey. More specifically, we focus on how these factors could affect people’s “feeling about life as a whole”. Statistical models are used in the analyses, including [……]. The analysis results leading to the conclusion of that [……].
@@ -27,14 +32,23 @@ With the rapid development of modern cities, people’s quality of life seems to
 ## Data
 
   We chose to analyze the General social survey data on Family (cycle 31), 2017 from the U of T library, provided by Statistics Canada under the terms of the Data Liberation Initiative (DLI) license. The survey collected a large amount of data for each selected respondent as well as some information about each member of the respondent’s household, including age, sex, family origins, conjugal history, the respondent’s children, financial condition, labor market activity, subjective well-being and feelings about life as a whole. 
+  
   The target population of this survey includes all persons 15 years of age and older in Canada. It used the redesigned GSS frame, integrating data from sources of both landline and cellular phone numbers available to Statistics Canada and the Address Register. The sample population was obtained with stratification. Provinces and many Census Metropolitan Areas (CMAs) were considered as separate stratum, and each record in the survey frame was assigned to a stratum. Then a simple random sample without replacement of records was performed in each stratum. Any household with no telephone or at least one person 15 years of age or older was excluded from the survey. Respondents were then randomly selected from eligible households and participated in the survey through telephone interview. The survey involved 20602 respondents in total and recorded 81 variables.
+  
   We downloaded the raw csv dataset for STATA, cleaned and prepared it in R with the gss_cleaning file provided ahead alongside the problem set question. The gss_cleaning file converts the raw dataset into a dictionary type dataset with renamed variables. In order to analyze the effect of personal life situation on the life satisfaction score, we select the variables below:
+  
 + sex: the sex of the respondent;
+
 + marital_status: the marital status of the respondent;
+
 + total_children: the total number of children the respondent has, as self-reported;
+
 + average_hours_worked: the average number of hours worked per week;
+
 + income_respondent:  the total income of respondent received in the calendar year 2016 from all sources before income taxes and deductions;
+
 + self_rated_health: self rated health of respondent, ranging from excellent to poor;
+
 + feelings_life: feelings about life as a whole using a scale of 0 to 10, where 0 means "very dissatisfied" and 10 means "very satisfied".
 
 
