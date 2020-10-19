@@ -2,7 +2,9 @@
 title: "Title of Your Report"
 author: "Jiaheng Li, Heye Liu, Yan Wang, Yuxin Yang"
 date: "18/10/2020"
-output: pdf_document
+output: 
+  pdf_document:
+    latex_engine: xelatex
 ---
 
 ```{r setup, include=FALSE}
@@ -19,13 +21,10 @@ raw_data <- read_csv("gss.csv")
 dataset <- raw_data %>% select(caseid, age, total_children, sex, feelings_life, marital_status, average_hours_worked, income_respondent, self_rated_health)
 ```
 
-# Title of your Report
+## Title of your Report
 
-Jiaheng Li, Heye Liu, Yan Wang, Yuxin Yang
-October 18, 2020
-
-## Code and data supporting the analysis is available at the repository:
-https://github.com/frank9973/STA304-PS2.git  
+# Jiaheng Li(lijiahe5, 1003825088), Heye Liu(liuheye1, 1004864694), Yan Wang(wang1154, 1004990183), Yuxin Yang(yangyu77, 1004834673)
+# October 18, 2020
 
 
 ## Abstract
@@ -36,7 +35,7 @@ This project focuses on how people's ages and their physical health conditions c
 
 With the rapid development of modern cities, people’s quality of life seems to be improving. More convenient transportations, communication equipment, and more diverse forms of entertainment provide people with comfort in life. But it seems that people’s pace of life has become urgent. Many people live a two-point life while having to find a balance of work and family. There is very little time left for personal relaxation. This directly or indirectly causes many people’s physical health to face the threat. A lot of people are starting to ask themselves: if working hard and being busy every day, adjusting themselves to a fast living pace is for living a happier and more comfortable life, is it worth sacrificing your body health? We are also part of the busy crowd and have been thinking about this question. So, we want to find the relationship between personal health conditions and life satisfaction. Given that the health condition may be age-related, we would also add age to our analysis. Canadian General Social Survey recorded information about the basic living conditions of Canadian people including their age and self-rated health conditions, and how they feel about their current life. In the following part of the report we will introduce our selected data, the statistical models that help us visualize the relationship between the variables age and health condition as Xs’ and our Y value, the score of “feelings about life as a whole”. Eventually give a conclusion based on our analysis result, about how people’s age and health conditions may bring whether positive or negative influences to their life satisfaction. More detailed information about the variables and models will be further explained in the sections after.
 
-
+\newpage
 ## Data
 
   We chose to analyze the General social survey data on Family (cycle 31), 2017 from the U of T library, provided by Statistics Canada under the terms of the Data Liberation Initiative (DLI) license. The survey collected a large amount of data for each selected respondent as well as some information about each member of the respondent’s household, including age, sex, family origins, conjugal history, the respondent’s children, financial condition, labor market activity, subjective well-being and feelings about life as a whole. 
@@ -59,13 +58,91 @@ With the rapid development of modern cities, people’s quality of life seems to
 
 + feelings_life: feelings about life as a whole using a scale of 0 to 10, where 0 means "very dissatisfied" and 10 means "very satisfied".
 
+\newpage
+## Models
+
+In order to determine the relationship between the age of people, their self rated health and feelings to life, we use the variable "age", "self_rated_health", and "feelings_life". Since the "self_rated_health" is a categorical variable, we assume each state as a predictor observation to "feelings_life". Although age is collected as numeric variable, we separate the age to different interval, like age20-40, age40-60, age60-80, each interval is a predictor observation to "feelings_life".
+Our hypothesis is the health affects more to feelings of life compare to age.
+The model is:
+
+$$feelings.life = \beta_0 +\beta_1 X_1 \ + \beta_2 X_2+\beta_3 X_3 +\beta_4 X_4 +\beta_5 X_5+\beta_6 X_a+\beta_7 X_b+\beta_8 X_c+\epsilon_i $$
+
+$feelings.life$ represents the index from 0-10 collected from General social surveys year 2017.\\
+\newline
+$X_1$:self rated health is excellent
+\newline
+$X_2$:self rated health is fair
+\newline
+$X_3$:self rated health is good
+\newline
+$X_4$:self rated health is poor
+\newline
+$X_5$:self rated health is very good
+\newline
+$X_a$:age interval from 20-40
+\newline
+$X_b$:age interval from 40-60
+\newline
+$X_c$:age interval from 60-80
+\newline
+$\epsilon_i$:error term in the model
+
+$$\beta_0 =7.25805, \beta_1 =1.52382,\beta_2 =-0.20491,\beta_3 =0.52931,\beta_4 =-1.41613 $$
+$$\beta_5 =1.03851,\beta_6 =-0.18829,\beta_7 =-0.03153,\beta_8 =0.33590 $$
+$$\hat{feelings.life} =7.25805 +1.52382 X_1 \ + -0.20491 X_2+0.52931 X_3 -1.41613 X_4 $$
+$$+1.03851 X_5-0.18829 X_a-0.03153 X_b+0.33590 X_c+\epsilon_i $$
+When all predictors is zero, the model represents the mean feelings to life in the suvey year 2017.
+\newline
+When $X_1$ increase by one unit, the average value of feelings to life increase 1.52382, given other predictors hold constant.
+\newline
+When $X_2$ increase by one unit, the average value of feelings to life decrease 0.20491, given other predictors hold constant.
+\newline
+When $X_3$ increase by one unit, the average value of feelings to life increase 0.52931, given other predictors hold constant.
+\newline
+When $X_4$ increase by one unit, the average value of feelings to life decrease 1.41613, given other predictors hold constant.
+\newline
+When $X_5$ increase by one unit, the average value of feelings to life increase 1.03851, given other predictors hold constant.
+\newline
+When $X_a$ increase by one unit, the average value of feelings to life decrease 0.18829, given other predictors hold constant.
+\newline
+When $X_b$ increase by one unit, the average value of feelings to life decrease 0.03153, given other predictors hold constant.
+\newline
+When $X_c$ increase by one unit, the average value of feelings to life increase 0.33590, given other predictors hold constant.
+
+The standard error for each predictor is very small.
 
 
+Next we use a p-value test to find the correlation between self rated_health_excellent and feelings to life. We assume the hypothesis test is there is no correlation between rated_health_excellent and feelings to life, and the alternative  test is there is correlation.
+$$H_0:\beta_1=0,H_a:\beta_1 \neq 0$$
+$$pvalue=5.37e-12$$
+Use the significance level of 5%, the p-value is much smaller than the significance level, so we reject the hypothesis test. The p-value test support the alternative test that there is correlation between self_rated_health_excellent and feelings_life.
+We repeat testing the p-value for each predictor and intercept. The result supports $X_1$,$X_3$,$X_4$,$X_5$,$X_a$,$X_c$,and $\beta_0$has relation to feelings to life.
 
+The r-squared in model1 is 0.163,it indicates the security does not generally follow the movements of the index.
+```{r echo=FALSE}
+library(moderndive)
+dataset$self_rated_health <- as.character(dataset$self_rated_health)
+dataset$self_rated_health[dataset$self_rated_health == "Don't know"] <- 0
+dataset$self_rated_health[dataset$self_rated_health == "Poor"] <- 1
+dataset$self_rated_health[dataset$self_rated_health == "Fair"] <- 2
+dataset$self_rated_health[dataset$self_rated_health == "Good"] <- 3
+dataset$self_rated_health[dataset$self_rated_health == "Very good"] <- 4
+dataset$self_rated_health[dataset$self_rated_health == "Excellent"] <- 5
+dataset$age[dataset$age <= 20] <- "0-20"
+dataset$age[20.1 <= dataset$age  & dataset$age<= 40] <- "20-40"
+dataset$age[40.1 <= dataset$age  & dataset$age<= 60] <- "40-60"
+dataset$age[60.1 <= dataset$age  & dataset$age<= 80] <- "60-80"
+dataset$age[80.1 <= dataset$age] <- "80-100"
+model <- lm(feelings_life ~ self_rated_health + age, data = dataset)
+get_regression_table(model)
+```
+
+\newpage
 ## Results
+
 Firstly, we create a multiple linear model for feelings_life with self_rated_health vs ages.
 
-***model***:
+### ***model***:
 
 ```{r echo=FALSE}
 library(moderndive)
@@ -81,15 +158,15 @@ dataset$age[20.1 <= dataset$age  & dataset$age<= 40] <- "20-40"
 dataset$age[40.1 <= dataset$age  & dataset$age<= 60] <- "40-60"
 dataset$age[60.1 <= dataset$age  & dataset$age<= 80] <- "60-80"
 dataset$age[80.1 <= dataset$age] <- "80-100"
-
-model <- lm(feelings_life ~ age + self_rated_health, data = dataset)
+model <- lm(feelings_life ~ self_rated_health + age, data = dataset)
 get_regression_table(model)
 ```
 
+
 In addition, we make four different bar plots to reflects the impact of physical fitness on people's feeling_life at different ages. In these plots, we use use (1, 2, 3, 4, 5)  to correspond to (poor, fair, good, verygood, excellent) in the variable self_rated_health. Moreover, The age groups of these four bar plots are 0-20, 20-40, 40-60 and 60-80 respectively.
 
-
-***Figure1***:
+\newpage
+### ***Figure1***:
 
 ```{r echo=FALSE}
 dataset$feelings_life[dataset$feelings_life == 1] <- "1-2"
@@ -103,58 +180,58 @@ dataset$feelings_life[dataset$feelings_life == 8] <- "7-8"
 dataset$feelings_life[dataset$feelings_life == 9] <- "9-10"
 dataset$feelings_life[dataset$feelings_life == 10] <- "9-10"
 #show a box plot for income_respondent and feelings_life
-dd <- dataset %>% filter(age == "0-20")
+dd <- dataset %>% filter(age == "0-20" & is.na(self_rated_health) == FALSE)
 dd <- dd[order(dd$self_rated_health), ]
-ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life))
+ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life)) + ggtitle("the barplot for self_rated_health and feelings_life at ages 0-20")
 ```
 
 For Figure1, we can see that in the ages of 0-20, the more healthy people are, the greater the percentage of those with a happiness index of 9 to 10. From the graph, we can clearly observe that the healthier people are at this age, the happier most of them will be in life.
 
-
-***Figure2***:
+\newpage
+### ***Figure2***:
 
 ```{r echo=FALSE}
-dd <- dataset %>% filter(age == "20-40")
+dd <- dataset %>% filter(age == "20-40" & is.na(self_rated_health) == FALSE)
 dd <- dd[order(dd$self_rated_health), ]
-ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life))
+ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life)) + ggtitle("the barplot for self_rated_health and feelings_life at ages 20-40")  + scale_fill_brewer(palette = "Set1")
 ```
 
 For figrue2, it shows that in the age group of 20-40, There were more participants in this age group than in the 0-20 age group. And when the health status of participants at this age is good, very good or excellent, The proportion of people with a life happiness index less than or equal to 4 is higher than those with the same health status in the age group of 0-20. The reason for this may be that most people in this age group are under a lot of pressure from work, society and family. These kinds of stress may affect their level of feeling life. However, it is the same as the 0-20 age group, at this age group, a person's health status is about good, the happiness index will be high.
 
-
-***Figure3***:
+\newpage
+### ***Figure3***:
 
 ```{r echo=FALSE}
-dd <- dataset %>% filter(age == "40-60")
+dd <- dataset %>% filter(age == "40-60" & is.na(self_rated_health) == FALSE)
 dd <- dd[order(dd$self_rated_health), ]
-ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life))
+ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life)) + ggtitle("the barplot for self_rated_health and feelings_life at ages 40-60") + scale_fill_brewer(palette = "Set2")
 ```
 
 For figrue3, we cam make the same conclusion as the age group for 20-40,  the healthier people are at this age, the happier most of them will be in life. The proportion of people with different levels of feeling life in different health states is basically the same as that of the 20-40 age group. 
 
-
+\newpage
 ***Figure4***:
 
 ```{r echo=FALSE}
-dd <- dataset %>% filter(age == "60-80")
+dd <- dataset %>% filter(age == "60-80" & is.na(self_rated_health) == FALSE)
 dd <- dd[order(dd$self_rated_health), ]
-ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life))
+ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life)) + ggtitle("the barplot for self_rated_health and feelings_life at ages 60-80") + scale_fill_brewer(palette = "Set3")
 ```
 
 For figrue4, we also can get the conclusion that at this age group, a person's health status is about good, the happiness index will be high. There is a difference at this age group that among the people whose health status is "good", the proportion of people with a happiness index of 9-10 is higher than that of the previous three age groups. This difference may be caused by the difference in age. In the 60-80 age group, people's health is generally not as good as before, so they are not too nervous about the decline of their physical health. Moreover, most people in this age group have retired and do not have as much pressure as when they were young. So, the level of feeling life is a little higher than the first three ages.
 
-
+\newpage
 ## Discussion
 
-Firstly, from the models section and results section, we can make a primary conclusion that People’s physical health has a greater impact on people’s level of feeling life than age has on people. When a person’s physical health is good, he will be more likely to have a high level of feeling life. On the contrary, when a person’s physical health is not good, it will be difficult for him to have a good level of feeling life. It just like an artical named Study suggests health, not wealth, determines happiness, said that "Self-described "healthy" people are 20 percent happier than average, while "unhealthy" people are 8.25 percent less happy."[1]. 
+Firstly, from the models' section and results section, we can make a primary conclusion that People’s physical health has a greater impact on people’s level of feeling life than age has on people. When a person’s physical health is good, he will be more likely to have a high level of feeling life. On the contrary, when a person’s physical health is not good, it will be difficult for him to have a good level of feeling life. It just like an article named Study suggests health, not wealth, determines happiness, said that “Self-described healthy people are 20 percent happier than average, while “unhealthy” people are 8.25 percent less happy."[1]
 
-The reason for this phenomenon is that physical unhealthy or illness will cause people's lives and psychology to be greatly affected."Physical changes from a disease may affect your appearance. These changes can turn a positive self-image into a poor one. When you don't feel good about yourself, you may prefer to be alone and withdraw from friends and social activities."[2]. Moreover, physical unhealthy and illness also "can also influence your ability to work. Morning stiffness, decreased range of motion, and other physical limitations may force you to change your work activities and environment. A decreased ability to work may also lead to financial problems."[3] In addition, hysical unhealthy and illness also can cause people have more stress. "Stress can build and can shape your feelings about life. Prolonged stress can lead to frustration, anger, hopelessness, and, at times, depression."[4] Therefore, When your body was not very healthy or sick, it would have a certain impact on your life, psychology, finances, work, etc. And often these factors are the main reference conditions for people to evaluate their level of feeling life.
+The reason for this phenomenon is that physical unhealthy or illness will cause people's lives and psychology to be greatly affected."Physical changes from a disease may affect your appearance. These changes can turn a positive self-image into a poor one. When you don't feel good about yourself, you may prefer to be alone and withdraw from friends and social activities."[2]. Moreover, physical unhealthy and illness "can also influence your ability to work. Morning stiffness decreased range of motion, and other physical limitations may force you to change your work activities and environment. A decreased ability to work may also lead to financial problems."[3] Besides, physical unhealthy and illness also can cause people to have more stress. "Stress can build and can shape your feelings about life. Prolonged stress can lead to frustration, anger, hopelessness, and, at times, depression."[4] Therefore, When your body was not very healthy or sick, it would have a certain impact on your life, psychology, finances, work, etc. And often these factors are the main reference conditions for people to evaluate their level of feeling life.
 
-However, different age groups will also have a little impact on people's level of feeling life. Among these participants, the higher the age, the proportion of their level of feeling life 9-10 is relatively higher than that of other age groups, even if their health status is not very good. In our opinion, the reason why have this kind of difference is that in the 60-80 age group, people's health is generally not as good as before, so they are not too nervous about the decline of their physical health. Moreover, most people in this age group have retired and do not have as much pressure as when they were young. At the same time, Most people already have enough savings at this age. There are children to take care of them, and lovely grandchildren often come to accompany them, so the impact of unhealthy health on them will be greatly reduced by these factors. The article named Why people get happier as they get older also have the same conclusion, "Although as people move towards old age they lose things they treasure — vitality, mental sharpness and looks — they also gain what people spend their lives pursuing: happiness."[5]
+However, different age groups will also have a little impact on people's level of feeling life. Among these participants, the higher the age, the proportion of their level of feeling life 9-10 is relatively higher than that of other age groups, even if their health status is not very good. In our opinion, the reason why has this kind of difference is that in the 60-80 age group, people's health is generally not as good as before, so they are not too nervous about the decline of their physical health. Moreover, most people in this age group have retired and do not have as much pressure as when they were young. At the same time, Most people already have enough savings at this age. There are children to take care of them, and lovely grandchildren often come to accompany them, so the impact of unhealthy health on them will be greatly reduced by these factors. The article named Why people get happier as they get older also has the same conclusion, "Although as people move towards old age they lose things they treasure — vitality, mental sharpness and looks — they also gain what people spend their lives pursuing: happiness."[5]
 
-Moreover, we also discover that for people aged 0-20, the proportion of people whose level of feeling life is less than 4 is smaller than that of the other three age groups. We think this is because most people in this age group have not yet started work and bear the pressure from society and family. They only need to study and do what they are interested in, and do not need to consider other. In the lives of these young people, there are not many factors that affect their level of feeling life, so the proportion of these young people whose level of feeling life is 9-10 is higher than that of the other three age groups.
+Moreover, we also discover that for people aged 0-20, the proportion of people whose level of feeling life is less than 4 is smaller than that of the other three age groups. We think this is because most people in this age group have not yet started work and bear the pressure from society and family. They only need to study and do what they are interested in and do not need to consider others. In the lives of these young people, there are not many factors that affect their level of feeling life, so the proportion of these young people whose level of feeling life is 9-10 is higher than that of the other three age groups.
 
-In general, We conclude from this survey that age and self health status will affect people’s level of feeling life, but self health status will have a greater impact on people’s level of feeling life. This is also in line with our expectations.
+In general, We conclude from this survey that age and self-health status will affect people’s level of feeling life, but the self-health status will have a greater impact on people’s level of feeling life. This is also in line with our expectations.
 
 # Weaknesses
 
@@ -177,6 +254,8 @@ There are some imperfections in the overall study which were hard to avoid. One 
 RStudio Team (2020). RStudio: Integrated Development for R. RStudio, PBC, Boston, MA URL http://www.rstudio.com/
 
 Yihui Xie andJ.J. Allaire and Garrett Grolemund (2018). R Markdown:The Definitive Guide. Chapman and Hall/CRC. URL https://bookdown.org/yihui/rmarkdown.
+
+Alexander, R., & Caetano, S. (2020, October 7). Gss_cleaning.R. Retrieved October 19, 2020
 
 
 
