@@ -21,10 +21,10 @@ raw_data <- read_csv("gss.csv")
 dataset <- raw_data %>% select(caseid, age, total_children, sex, feelings_life, marital_status, average_hours_worked, income_respondent, self_rated_health)
 ```
 
-## Title of your Report
+# Gain Happiness in Life: The Effect of Age and Self-evaluated Health Condition on Life Satisfaction
 
-# Jiaheng Li(lijiahe5, 1003825088), Heye Liu(liuheye1, 1004864694), Yan Wang(wang1154, 1004990183), Yuxin Yang(yangyu77, 1004834673)
-# October 18, 2020
+### Jiaheng Li(lijiahe5, 1003825088), Heye Liu(liuheye1, 1004864694), Yan Wang(wang1154, 1004990183), Yuxin Yang(yangyu77, 1004834673)
+### October 18, 2020
 
 
 ## Abstract
@@ -33,7 +33,9 @@ This project focuses on how people's ages and their physical health conditions c
 
 ## Introduction
 
-With the rapid development of modern cities, people’s quality of life seems to be improving. More convenient transportations, communication equipment, and more diverse forms of entertainment provide people with comfort in life. But it seems that people’s pace of life has become urgent. Many people live a two-point life while having to find a balance of work and family. There is very little time left for personal relaxation. This directly or indirectly causes many people’s physical health to face the threat. A lot of people are starting to ask themselves: if working hard and being busy every day, adjusting themselves to a fast living pace is for living a happier and more comfortable life, is it worth sacrificing your body health? We are also part of the busy crowd and have been thinking about this question. So, we want to find the relationship between personal health conditions and life satisfaction. Given that the health condition may be age-related, we would also add age to our analysis. Canadian General Social Survey recorded information about the basic living conditions of Canadian people including their age and self-rated health conditions, and how they feel about their current life. In the following part of the report we will introduce our selected data, the statistical models that help us visualize the relationship between the variables age and health condition as Xs’ and our Y value, the score of “feelings about life as a whole”. Eventually give a conclusion based on our analysis result, about how people’s age and health conditions may bring whether positive or negative influences to their life satisfaction. More detailed information about the variables and models will be further explained in the sections after.
+With the rapid modern city developments, people have enjoyed a higher quality of life. More convenient transportations, communication equipment, and more diverse forms of entertainment are provided for individuals to gain pleasure and comfort. Meanwile, it seems that people also live a life with a faster pace than ever. Many people live a two-point life, having to find a balance of work and family. There is very little time left for relaxations. This can either directly or indirectly put many people's physical health in risk. A lot of people are starting to ask themselves: is it worth sacrificing one's physical health for living a more comfortable life? We are also part of the busy crowd and have been thinking about this question. 
+
+We would like to find the relationship between self-evaluated health conditions and life satisfaction. Given that the health condition may be age-related, we would also add age as a factor to our analysis. The Canadian General Social Survey recorded information about the basic living conditions of Canadian people including their age and self-rated health conditions, and how they feel about their current life. In the following part of the report we will introduce our selected data, the statistical models that help us visualize the relationship between the explanatory variables age and self-reported health condition (Xs) and the response variable, which is the score of “feelings about life as a whole”. Eventually we will give a conclusion based on our analysis result, explaining how people’s age and health conditions may bring whether positive or negative influences to their life satisfaction. More detailed information about the variables and models will be further explained in the sections after.
 
 \newpage
 ## Data
