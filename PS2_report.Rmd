@@ -65,6 +65,7 @@ The survey excluded the households without telephone during the data collecting 
 
 We didn't pick the variable `self_rated_mental_health` since over 60% of the respondents reated themselves as either "excellent" or "very good", which made this variable less valuable than the self-rated health. We would also like to keep the model straightforward for the general audience to understand, so we select the self-rated health for further analysis.
 
+### Plots of raw data
 ```{r, echo=FALSE, fig.height=3, fig.width=5}
 dataset %>%
   na.omit() %>%
