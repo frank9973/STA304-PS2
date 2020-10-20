@@ -277,11 +277,11 @@ Moreover, from Figure1, we also discover that for people aged 0-20, the proporti
 
 In general, We conclude from this survey that age and self-health status will affect people’s level of feeling life, but the self-health status will have a greater impact on people’s level of feeling life. This is also in line with our expectations.
 
-# Weaknesses
+### Weaknesses
 
 There are some imperfections in the overall study which were hard to avoid. One important thing to notice is that the health condition we got from the survey was self-rated health condition, which might not be accurate real health condition. Also, people may tend to present themselves in a positive way in a society. This caused a response bias which may affect our results. There exist a lot of NA response in the survey data as well. Which makes our investigations have some blind spots.
 
-# Next Steps
+### Next Steps
 
 We will update our dataset in the future, and strive to get more accurate data. For example, people's health data, we can apply to some government medical structures to get more accurate people's health data. Then, we will expand our sample population and strive to get a conclusion that is more representative of the public. We will try more other statistical models, such as Bayesian and hierarchical model, and find the best model for more detailed analysis
 
