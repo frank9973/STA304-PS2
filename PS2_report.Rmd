@@ -39,26 +39,71 @@ We would like to find the relationship between self-evaluated health conditions 
 
 \newpage
 ## Data
+### Source
+We chose to analyze the General social survey data on Family (cycle 31), 2017 from the U of T library, provided by Statistics Canada under the terms of the Data Liberation Initiative (DLI) license. 
 
-  We chose to analyze the General social survey data on Family (cycle 31), 2017 from the U of T library, provided by Statistics Canada under the terms of the Data Liberation Initiative (DLI) license. The survey collected a large amount of data for each selected respondent as well as some information about each member of the respondent’s household, including age, sex, family origins, conjugal history, the respondent’s children, financial condition, labor market activity, subjective well-being and feelings about life as a whole. 
+### Target population
+The target population of this survey includes all persons 15 years of age and older in Canada.
+
+### Frame
+The survey used the redesigned GSS frame, integrating data from sources of both landline and cellular phone numbers available to Statistics Canada and the Address Register. 
+
+### Smapling methodology and Sample
+The sample population was obtained with stratification. Provinces and many Census Metropolitan Areas (CMAs) were considered as separate stratum, and each record in the survey frame was assigned to a stratum. Then a simple random sample without replacement of records was performed in each stratum. Any household with no telephone or at least one person 15 years of age or older was excluded from the survey. Respondents were then randomly selected from eligible households and participated in the survey through telephone interview. All the telephone interviewing was scheduled approximately 9:00 a.m. to 9:30 p.m. Mondays to Fridays, 10:00 a.m. to 5:00 p.m. on Saturdays and 1:00 p.m. to 9:00 p.m. on Sundays. All respondents who initially refused to participate were recontacted up to two more times to encourage their participation. The eventual responding rate was 52.4%.
+
+### Key features, strenths and weakness
+The survey collected a large amount of data for each selected respondent as well as some information about each member of the respondent’s household, including age, sex, family origins, conjugal history, the respondent’s children, financial condition, labor market activity, subjective well-being and feelings about life as a whole. 
+
+In order to avoid non-thinking answers, this survey asked questions of the same topic in multiple ways. This methodology ensured the truethness of each reponse and eventually the accuracy of the data set. The large amount of data also enables statistician to explore various topic regarding the personal and fimily life situation of Canadians. 
+
+The survey excluded the households without telephone during the data collecting process, which might cause the samples to be misrepresentative for the most impoverished part of the Canadian families. 
+
+### Selected variables
+  We downloaded the raw csv dataset for STATA, cleaned and prepared it in R with the gss_cleaning file provided ahead alongside the problem set question. The `gss_cleaning` file converts the raw dataset into a dictionary type dataset `gss.csv` with renamed variables. 20602 respondents in total and 81 variables were recorded in the data set `gss.csv`.
   
-  The target population of this survey includes all persons 15 years of age and older in Canada. It used the redesigned GSS frame, integrating data from sources of both landline and cellular phone numbers available to Statistics Canada and the Address Register. The sample population was obtained with stratification. Provinces and many Census Metropolitan Areas (CMAs) were considered as separate stratum, and each record in the survey frame was assigned to a stratum. Then a simple random sample without replacement of records was performed in each stratum. Any household with no telephone or at least one person 15 years of age or older was excluded from the survey. Respondents were then randomly selected from eligible households and participated in the survey through telephone interview. The survey involved 20602 respondents in total and recorded 81 variables.
+  In order to analyze the effect of personal life situation on the life satisfaction score, we select the variables below:
   
-  We downloaded the raw csv dataset for STATA, cleaned and prepared it in R with the gss_cleaning file provided ahead alongside the problem set question. The gss_cleaning file converts the raw dataset into a dictionary type dataset with renamed variables. In order to analyze the effect of personal life situation on the life satisfaction score, we select the variables below:
-  
-+ sex: the sex of the respondent;
++ `age`: the age of respondent.
 
-+ marital_status: the marital status of the respondent;
++ `self_rated_health`: self rated health of respondent, ranging from excellent to poor, including five valid levels in total;
 
-+ total_children: the total number of children the respondent has, as self-reported;
++ `feelings_life`: feelings about life as a whole using a scale of 0 to 10, where 0 means "very dissatisfied" and 10 means "very satisfied".
 
-+ average_hours_worked: the average number of hours worked per week;
+We didn't pick the variable `self_rated_mental_health` since over 60% of the respondents reated themselves as either "excellent" or "very good", which made this variable less valuable than the self-rated health. We would also like to keep the model straightforward for the general audience to understand, so we select the self-rated health for further analysis.
 
-+ income_respondent:  the total income of respondent received in the calendar year 2016 from all sources before income taxes and deductions;
+```{r, echo=FALSE}
+dataset %>%
+  na.omit() %>%
+  group_by(feelings_life) %>%
+  count() %>%
+  ggplot(aes(x=feelings_life, y=n)) + 
+  geom_bar(stat = "identity", fill="deepskyblue2" ) + 
+  labs(y="number of respondents")
+```
 
-+ self_rated_health: self rated health of respondent, ranging from excellent to poor;
+```{r, echo=FALSE}
+dataset$self_rated_health <- factor(dataset$self_rated_health, levels = c("Don't know", "Poor", "Fair", "Good", "Very good", "Excellent"))
 
-+ feelings_life: feelings about life as a whole using a scale of 0 to 10, where 0 means "very dissatisfied" and 10 means "very satisfied".
+dataset %>%
+  na.omit() %>%
+  group_by(self_rated_health) %>%
+  count() %>%
+  ggplot(aes(x=self_rated_health, y=n)) + 
+  geom_bar(stat = "identity", fill="deepskyblue2" ) + 
+  labs(y="number of respondents")
+```
+
+```{r, echo=FALSE}
+dataset %>%
+  na.omit() %>%
+  ggplot(aes(x=age)) + 
+  geom_histogram(binwidth = 8, fill="deepskyblue2", colour="deepskyblue4") + 
+  labs(y="number of respondents") + 
+  geom_vline(aes(xintercept=mean(age)), color="red", linetype="dashed", size=1)
+```
+```{r}
+summary(dataset$age)
+```
 
 \newpage
 ## Models
