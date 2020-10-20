@@ -8,13 +8,9 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-library(janitor)
 library(tidyverse)
 library(ggplot2)
 library(tinytex)
-library(sjPlot)
-library(sjmisc)
-library(sjlabelled)
 tinytex::install_tinytex()
 # Load the data dictionary and the raw data and correct the variable names
 raw_data <- read_csv("gss.csv")
@@ -272,9 +268,9 @@ For figrue4, we also can get the conclusion that at this age group, a person's h
 
 Firstly, from the models' section and results section, we can make a primary conclusion that People’s physical health has a greater impact on people’s level of feeling life than age has on people. When a person’s physical health is good, he will be more likely to have a high level of feeling life. On the contrary, when a person’s physical health is not good, it will be difficult for him to have a good level of feeling life. It just like an article named Study suggests health, not wealth, determines happiness, said that “Self-described healthy people are 20 percent happier than average, while “unhealthy” people are 8.25 percent less happy."[1]
 
-The reason for this phenomenon is that physical unhealthy or illness will cause people's lives and psychology to be greatly affected."Physical changes from a disease may affect your appearance. These changes can turn a positive self-image into a poor one. When you don't feel good about yourself, you may prefer to be alone and withdraw from friends and social activities."[2]. Moreover, physical unhealthy and illness "can also influence your ability to work. Morning stiffness decreased range of motion, and other physical limitations may force you to change your work activities and environment. A decreased ability to work may also lead to financial problems."[3] Besides, physical unhealthy and illness also can cause people to have more stress. "Stress can build and can shape your feelings about life. Prolonged stress can lead to frustration, anger, hopelessness, and, at times, depression."[4] Therefore, When your body was not very healthy or sick, it would have a certain impact on your life, psychology, finances, work, etc. And often these factors are the main reference conditions for people to evaluate their level of feeling life.
+The reason for this phenomenon is that physical unhealthy or illness will cause people's lives and psychology to be greatly affected."Physical changes from a disease may affect your appearance. These changes can turn a positive self-image into a poor one. When you don't feel good about yourself, you may prefer to be alone and withdraw from friends and social activities."[2]. Moreover, physical unhealthy and illness "can also influence your ability to work. Morning stiffness decreased range of motion, and other physical limitations may force you to change your work activities and environment. A decreased ability to work may also lead to financial problems."[2] Besides, physical unhealthy and illness also can cause people to have more stress. "Stress can build and can shape your feelings about life. Prolonged stress can lead to frustration, anger, hopelessness, and, at times, depression."[2] Therefore, When your body was not very healthy or sick, it would have a certain impact on your life, psychology, finances, work, etc. And often these factors are the main reference conditions for people to evaluate their level of feeling life.
 
-However, different age groups will also have a little impact on people's level of feeling life. Among these participants, the higher the age, the proportion of their level of feeling life 9-10 is relatively higher than that of other age groups, even if their health status is not very good. In our opinion, the reason why has this kind of difference is that in the 60-80 age group, people's health is generally not as good as before, so they are not too nervous about the decline of their physical health. Moreover, most people in this age group have retired and do not have as much pressure as when they were young. At the same time, Most people already have enough savings at this age. There are children to take care of them, and lovely grandchildren often come to accompany them, so the impact of unhealthy health on them will be greatly reduced by these factors. The article named Why people get happier as they get older also has the same conclusion, "Although as people move towards old age they lose things they treasure — vitality, mental sharpness and looks — they also gain what people spend their lives pursuing: happiness."[5]
+However, different age groups will also have a little impact on people's level of feeling life. Among these participants, the higher the age, the proportion of their level of feeling life 9-10 is relatively higher than that of other age groups, even if their health status is not very good. In our opinion, the reason why has this kind of difference is that in the 60-80 age group, people's health is generally not as good as before, so they are not too nervous about the decline of their physical health. Moreover, most people in this age group have retired and do not have as much pressure as when they were young. At the same time, Most people already have enough savings at this age. There are children to take care of them, and lovely grandchildren often come to accompany them, so the impact of unhealthy health on them will be greatly reduced by these factors. The article named Why people get happier as they get older also has the same conclusion, "Although as people move towards old age they lose things they treasure — vitality, mental sharpness and looks — they also gain what people spend their lives pursuing: happiness."[3]
 
 Moreover, we also discover that for people aged 0-20, the proportion of people whose level of feeling life is less than 4 is smaller than that of the other three age groups. We think this is because most people in this age group have not yet started work and bear the pressure from society and family. They only need to study and do what they are interested in and do not need to consider others. In the lives of these young people, there are not many factors that affect their level of feeling life, so the proportion of these young people whose level of feeling life is 9-10 is higher than that of the other three age groups.
 
@@ -286,23 +282,30 @@ There are some imperfections in the overall study which were hard to avoid. One 
 
 # Next Steps
 
+We will update our dataset in the future, and strive to get more accurate data. For example, people's health data, we can apply to some government medical structures to get more accurate people's health data. Then, we will expand our sample population and strive to get a conclusion that is more representative of the public. We will try more other statistical models, such as Bayesian and hierarchical model, and find the best model for more detailed analysis
+
+
 
 ## Reference
-[1] https://www.zdnet.com/article/study-suggests-health-not-wealth-determines-happiness
+[1] Mims, C., 2020. Study Suggests Health, Not Wealth, Determines Happiness | Zdnet. [online] ZDNet. Available at: <https://www.zdnet.com/article/study-suggests-health-not-wealth-determines-happiness>.
 
-[2] https://my.clevelandclinic.org/health/articles/4062-chronic-illness
+[2] Cleveland Clinic. 2020. Living With Chronic Illness. [online] Available at: <https://my.clevelandclinic.org/health/articles/4062-chronic-illness>.
 
-[3] https://my.clevelandclinic.org/health/articles/4062-chronic-illness
+[3] Medium. 2020. Why People Get Happier As They Get Older. [online] Available at: <https://medium.economist.com/why-people-get-happier-as-they-get-older-b5e412e471ed> .
 
-[4] https://my.clevelandclinic.org/health/articles/4062-chronic-illness
+[4]RStudio Team (2020). RStudio: Integrated Development for R. RStudio, PBC, Boston, MA URL http://www.rstudio.com/
 
-[5] https://medium.economist.com/why-people-get-happier-as-they-get-older-b5e412e471ed
+[5]Yihui Xie andJ.J. Allaire and Garrett Grolemund (2018). R Markdown:The Definitive Guide. Chapman and Hall/CRC. URL https://bookdown.org/yihui/rmarkdown.
 
-RStudio Team (2020). RStudio: Integrated Development for R. RStudio, PBC, Boston, MA URL http://www.rstudio.com/
+[6]Alexander, R., & Caetano, S. (2020, October 7). Gss_cleaning.R. Retrieved October 19, 2020
 
-Yihui Xie andJ.J. Allaire and Garrett Grolemund (2018). R Markdown:The Definitive Guide. Chapman and Hall/CRC. URL https://bookdown.org/yihui/rmarkdown.
+[7]H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.
 
-Alexander, R., & Caetano, S. (2020, October 7). Gss_cleaning.R. Retrieved October 19, 2020
+[8]Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43), 1686,
+  https://doi.org/10.21105/joss.01686
+  
+[9]Yihui Xie (2020). tinytex: Helper Functions to Install and Maintain 'TeX Live', and Compile 'LaTeX'
+  Documents. R package version 0.21.
 
 
 
