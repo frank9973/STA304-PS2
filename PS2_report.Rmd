@@ -13,6 +13,7 @@ library(tinytex)
 #tinytex::install_tinytex()
 # Load the data dictionary and the raw data and correct the variable names
 raw_data <- read_csv("gss.csv")
+#select the variable we need to use
 dataset <- raw_data %>% select(caseid, age, total_children, sex, feelings_life, marital_status, average_hours_worked, income_respondent, self_rated_health)
 ```
 
@@ -22,18 +23,18 @@ Authors: Jiaheng Li(lijiahe5, 1003825088), Heye Liu(liuheye1, 1004864694), Yan W
 
 
 
-## Abstract
+# Abstract
 
 This project focuses on how people's ages and their physical health conditions could affect their life happiness based on the Canadian General Social Survey. Statistical models such as linear regressions, boxplot, are used in the analyses. The results lead to the conclusion that both age and health conditions have influences on people’s life happiness.
 
-## Introduction
+# Introduction
 
 With the rapid modern city developments, people have enjoyed a higher quality of life. More convenient transportations, communication equipment, and more diverse forms of entertainment are provided for individuals to gain pleasure and comfort. Meanwile, it seems that people also live a life with a faster pace than ever. Many people live a two-point life, having to find a balance of work and family. There is very little time left for relaxations. This can either directly or indirectly put many people's physical health in risk. A lot of people are starting to ask themselves: is it worth sacrificing one's physical health for living a more comfortable life? We are also part of the busy crowd and have been thinking about this question. 
 
 We would like to find the relationship between self-evaluated health conditions and life satisfaction. Given that the health condition may be age-related, we would also add age as a factor to our analysis. The Canadian General Social Survey recorded information about the basic living conditions of Canadian people including their age and self-rated health conditions, and how they feel about their current life. In the following part of the report we will introduce our selected data, the statistical models that help us visualize the relationship between the explanatory variables age and self-reported health condition (Xs) and the response variable, which is the score of “feelings about life as a whole”. Eventually we will give a conclusion based on our analysis result, explaining how people’s age and health conditions may bring whether positive or negative influences to their life satisfaction. More detailed information about the variables and models will be further explained in the sections after.
 
 \newpage
-## Data
+# Data
 ### Source
 We chose to analyze the General social survey data on Family (cycle 31), 2017 from the U of T library, provided by Statistics Canada under the terms of the Data Liberation Initiative (DLI) license. 
 
@@ -100,11 +101,12 @@ dataset %>%
   geom_vline(aes(xintercept=mean(age)), color="red", linetype="dashed", size=1)
 ```
 ```{r}
+#summary the age in dataset
 summary(dataset$age)
 ```
 
 \newpage
-## Models
+# Models
 
 In order to determine the relationship between the age of people, their self rated health and feelings to life, we use the variable "age", "self_rated_health", and "feelings_life". Since the "self_rated_health" is a categorical variable, we assume each state as a predictor observation to "feelings_life". Although age is collected as numeric variable, we separate the age to different interval, like age20-40, age40-60, age60-80, each interval is a predictor observation to "feelings_life".
 Our hypothesis is the health affects more to feelings of life compare to age.
@@ -166,6 +168,7 @@ We repeat testing the p-value for each predictor and intercept. The result suppo
 The r-squared in model1 is 0.163,it indicates the security does not generally follow the movements of the index.
 ```{r echo=FALSE}
 library(moderndive)
+#modify the value of self_rated_health to number
 dataset$self_rated_health <- as.character(dataset$self_rated_health)
 dataset$self_rated_health[dataset$self_rated_health == "Don't know"] <- 0
 dataset$self_rated_health[dataset$self_rated_health == "Poor"] <- 1
@@ -173,37 +176,27 @@ dataset$self_rated_health[dataset$self_rated_health == "Fair"] <- 2
 dataset$self_rated_health[dataset$self_rated_health == "Good"] <- 3
 dataset$self_rated_health[dataset$self_rated_health == "Very good"] <- 4
 dataset$self_rated_health[dataset$self_rated_health == "Excellent"] <- 5
+#modify the value of age to different interval of ages
 dataset$age[dataset$age <= 20] <- "0-20"
 dataset$age[20.1 <= dataset$age  & dataset$age<= 40] <- "20-40"
 dataset$age[40.1 <= dataset$age  & dataset$age<= 60] <- "40-60"
 dataset$age[60.1 <= dataset$age  & dataset$age<= 80] <- "60-80"
 dataset$age[80.1 <= dataset$age] <- "80-100"
+#create a multiple linear model for x = self_rated_health, age  y = feelings_life
 model <- lm(feelings_life ~ self_rated_health + age, data = dataset)
+#summary the model as a table
 get_regression_table(model)
 ```
 
 \newpage
-## Results
+# Results
 
 Firstly, we create a multiple linear model for feelings_life with self_rated_health vs ages.
 
 ### ***model***:
 
 ```{r echo=FALSE}
-library(moderndive)
-dataset$self_rated_health <- as.character(dataset$self_rated_health)
-dataset$self_rated_health[dataset$self_rated_health == "Don't know"] <- 0
-dataset$self_rated_health[dataset$self_rated_health == "Poor"] <- 1
-dataset$self_rated_health[dataset$self_rated_health == "Fair"] <- 2
-dataset$self_rated_health[dataset$self_rated_health == "Good"] <- 3
-dataset$self_rated_health[dataset$self_rated_health == "Very good"] <- 4
-dataset$self_rated_health[dataset$self_rated_health == "Excellent"] <- 5
-dataset$age[dataset$age <= 20] <- "0-20"
-dataset$age[20.1 <= dataset$age  & dataset$age<= 40] <- "20-40"
-dataset$age[40.1 <= dataset$age  & dataset$age<= 60] <- "40-60"
-dataset$age[60.1 <= dataset$age  & dataset$age<= 80] <- "60-80"
-dataset$age[80.1 <= dataset$age] <- "80-100"
-model <- lm(feelings_life ~ self_rated_health + age, data = dataset)
+#summary the model as a table
 get_regression_table(model)
 ```
 
@@ -214,6 +207,7 @@ In addition, we make four different bar plots to reflects the impact of physical
 ### ***Figure1***:
 
 ```{r echo=FALSE}
+#modify the value of feelings_life to different interval
 dataset$feelings_life[dataset$feelings_life == 1] <- "1-2"
 dataset$feelings_life[dataset$feelings_life == 2] <- "1-2"
 dataset$feelings_life[dataset$feelings_life == 3] <- "3-4"
@@ -224,8 +218,9 @@ dataset$feelings_life[dataset$feelings_life == 7] <- "7-8"
 dataset$feelings_life[dataset$feelings_life == 8] <- "7-8"
 dataset$feelings_life[dataset$feelings_life == 9] <- "9-10"
 dataset$feelings_life[dataset$feelings_life == 10] <- "9-10"
-#show a box plot for income_respondent and feelings_life
+#select the rows of dd which age == "0-20"
 dd <- dataset %>% filter(age == "0-20" & is.na(self_rated_health) == FALSE)
+#sort the dd
 dd <- dd[order(dd$self_rated_health), ]
 ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life)) + ggtitle("the barplot for self_rated_health and feelings_life at ages 0-20")
 ```
@@ -235,7 +230,9 @@ For Figure1, we can see that in the ages of 0-20, the more healthy people are, t
 ### ***Figure2***:
 
 ```{r echo=FALSE}
+#select the rows of dd which age == "20-40"
 dd <- dataset %>% filter(age == "20-40" & is.na(self_rated_health) == FALSE)
+#sort the dd
 dd <- dd[order(dd$self_rated_health), ]
 ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life)) + ggtitle("the barplot for self_rated_health and feelings_life at ages 20-40")  + scale_fill_brewer(palette = "Set1")
 ```
@@ -246,7 +243,9 @@ For figrue2, it shows that in the age group of 20-40, There were more participan
 ### ***Figure3***:
 
 ```{r echo=FALSE}
+#select the rows of dd which age == "40-60"
 dd <- dataset %>% filter(age == "40-60" & is.na(self_rated_health) == FALSE)
+#sort the dd
 dd <- dd[order(dd$self_rated_health), ]
 ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life)) + ggtitle("the barplot for self_rated_health and feelings_life at ages 40-60") + scale_fill_brewer(palette = "Set2")
 ```
@@ -254,10 +253,12 @@ ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life)) + ggtit
 For figrue3, we cam make the same conclusion as the age group for 20-40,  the healthier people are at this age, the happier most of them will be in life. The proportion of people with different levels of feeling life in different health states is basically the same as that of the 20-40 age group. 
 
 \newpage
-***Figure4***:
+### ***Figure4***:
 
 ```{r echo=FALSE}
+#select the rows of dd which age == "60-80"
 dd <- dataset %>% filter(age == "60-80" & is.na(self_rated_health) == FALSE)
+#sort the dd
 dd <- dd[order(dd$self_rated_health), ]
 ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life)) + ggtitle("the barplot for self_rated_health and feelings_life at ages 60-80") + scale_fill_brewer(palette = "Set3")
 ```
@@ -265,7 +266,7 @@ ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life)) + ggtit
 For figrue4, we also can get the conclusion that at this age group, a person's health status is about good, the happiness index will be high. There is a difference at this age group that among the people whose health status is "good", the proportion of people with a happiness index of 9-10 is higher than that of the previous three age groups. This difference may be caused by the difference in age. In the 60-80 age group, people's health is generally not as good as before, so they are not too nervous about the decline of their physical health. Moreover, most people in this age group have retired and do not have as much pressure as when they were young. So, the level of feeling life is a little higher than the first three ages.
 
 \newpage
-## Discussion
+# Discussion
 
 Firstly, from the model, Figure1, Figure2, Figure3 and Figure4, we can make a primary conclusion that People’s physical health has a greater impact on people’s level of feeling life than age has on people. When a person’s physical health is good, he will be more likely to have a high level of feeling life. On the contrary, when a person’s physical health is not good, it will be difficult for him to have a good level of feeling life. It just like an article named Study suggests health, not wealth, determines happiness, said that “Self-described healthy people are 20 percent happier than average, while “unhealthy” people are 8.25 percent less happy."[4]
 
@@ -277,11 +278,11 @@ Moreover, from Figure1, we also discover that for people aged 0-20, the proporti
 
 In general, We conclude from this survey that age and self-health status will affect people’s level of feeling life, but the self-health status will have a greater impact on people’s level of feeling life. This is also in line with our expectations.
 
-### Weaknesses
+# Weaknesses
 
 There are some imperfections in the overall study which were hard to avoid. One important thing to notice is that the health condition we got from the survey was self-rated health condition, which might not be accurate real health condition. Also, people may tend to present themselves in a positive way in a society. This caused a response bias which may affect our results. There exist a lot of NA response in the survey data as well. Which makes our investigations have some blind spots.
 
-### Next Steps
+# Next Steps
 
 We will update our dataset in the future, and strive to get more accurate data. For example, people's health data, we can apply to some government medical structures to get more accurate people's health data. Then, we will expand our sample population and strive to get a conclusion that is more representative of the public. We will try more other statistical models, such as Bayesian and hierarchical model, and find the best model for more detailed analysis
 
