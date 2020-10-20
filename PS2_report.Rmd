@@ -16,6 +16,7 @@ raw_data <- read_csv("gss.csv")
 dataset <- raw_data %>% select(caseid, age, total_children, sex, feelings_life, marital_status, average_hours_worked, income_respondent, self_rated_health)
 ```
 
+### Group 62
 
 Authors: Jiaheng Li(lijiahe5, 1003825088), Heye Liu(liuheye1, 1004864694), Yan Wang(wang1154, 1004990183), Yuxin Yang(yangyu77, 1004834673)
 
@@ -204,6 +205,7 @@ model <- lm(feelings_life ~ self_rated_health + age, data = dataset)
 get_regression_table(model)
 ```
 
+The model indicates that health affects more to feelings of life compared to age. People who rated themselves health as “excellent” and between age 60-80 gains highest index feelings to life. People who rated themselves health as “fair” and between age 20-40 have the Lowest index of feelings to life.
 
 In addition, we make four different bar plots to reflects the impact of physical fitness on people's feeling_life at different ages. In these plots, we use use (1, 2, 3, 4, 5)  to correspond to (poor, fair, good, verygood, excellent) in the variable self_rated_health. Moreover, The age groups of these four bar plots are 0-20, 20-40, 40-60 and 60-80 respectively.
 
