@@ -76,7 +76,7 @@ dataset %>%
   count() %>%
   ggplot(aes(x=feelings_life, y=n)) + 
   geom_bar(stat = "identity", fill="deepskyblue2" ) + 
-  labs(y="number of respondents", title ="Plot1")
+  labs(y="number of respondents", title ="Frequency distribution of scores of feelings about life as a whole")
 ```
 
 
@@ -89,7 +89,7 @@ dataset %>%
   count() %>%
   ggplot(aes(x=self_rated_health, y=n)) + 
   geom_bar(stat = "identity", fill="deepskyblue2" ) + 
-  labs(y="number of respondents", title ="Plot2")
+  labs(y="number of respondents", title ="Frequency distribution of self-rated health scores")
 ```
 
 ```{r, echo=FALSE, fig.height=3, fig.width=5}
@@ -97,7 +97,7 @@ dataset %>%
   na.omit() %>%
   ggplot(aes(x=age)) + 
   geom_histogram(binwidth = 8, fill="deepskyblue2", colour="deepskyblue4") + 
-  labs(y="number of respondents",title ="Plot3") + 
+  labs(y="number of respondents",title ="Ages of respondents") + 
   geom_vline(aes(xintercept=mean(age)), color="red", linetype="dashed", size=1)
 ```
 ```{r}
