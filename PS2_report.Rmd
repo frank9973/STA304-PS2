@@ -209,7 +209,6 @@ The model indicates that health affects more to feelings of life compared to age
 
 In addition, we make four different bar plots to reflects the impact of physical fitness on people's feeling_life at different ages. In these plots, we use use (1, 2, 3, 4, 5)  to correspond to (poor, fair, good, verygood, excellent) in the variable self_rated_health. Moreover, The age groups of these four bar plots are 0-20, 20-40, 40-60 and 60-80 respectively.
 
-\newpage
 ### ***Figure1***:
 
 ```{r echo=FALSE}
@@ -231,7 +230,6 @@ ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life)) + ggtit
 
 For Figure1, we can see that in the ages of 0-20, the more healthy people are, the greater the percentage of those with a happiness index of 9 to 10. From the graph, we can clearly observe that the healthier people are at this age, the happier most of them will be in life.
 
-\newpage
 ### ***Figure2***:
 
 ```{r echo=FALSE}
@@ -307,6 +305,8 @@ We will update our dataset in the future, and strive to get more accurate data. 
   
 [9]Yihui Xie (2020). tinytex: Helper Functions to Install and Maintain 'TeX Live', and Compile 'LaTeX'
   Documents. R package version 0.21.
+  
+[10]Statistics Canada. (2017). General Social Survey On Family (Cycle 31), 2017 - Canadian General Social Surveys (GSS).. [online] Available at: <https://sda-artsci-utoronto-ca.myaccess.library.utoronto.ca/sdaweb/html/gss.htm>
 
 
 
