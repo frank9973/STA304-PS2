@@ -1,6 +1,5 @@
 ---
-title: "Title of Your Report"
-author: "Jiaheng Li, Heye Liu, Yan Wang, Yuxin Yang"
+title: "How to Gain Happiness in Life: The Effect of Age and Self-Evaluated Health Condition on Life Satisfaction"
 date: "18/10/2020"
 output: 
   pdf_document:
@@ -17,10 +16,9 @@ raw_data <- read_csv("gss.csv")
 dataset <- raw_data %>% select(caseid, age, total_children, sex, feelings_life, marital_status, average_hours_worked, income_respondent, self_rated_health)
 ```
 
-# Gain Happiness in Life: The Effect of Age and Self-evaluated Health Condition on Life Satisfaction
 
-### Jiaheng Li(lijiahe5, 1003825088), Heye Liu(liuheye1, 1004864694), Yan Wang(wang1154, 1004990183), Yuxin Yang(yangyu77, 1004834673)
-### October 18, 2020
+Authors: Jiaheng Li(lijiahe5, 1003825088), Heye Liu(liuheye1, 1004864694), Yan Wang(wang1154, 1004990183), Yuxin Yang(yangyu77, 1004834673)
+
 
 
 ## Abstract
@@ -67,7 +65,7 @@ The survey excluded the households without telephone during the data collecting 
 
 We didn't pick the variable `self_rated_mental_health` since over 60% of the respondents reated themselves as either "excellent" or "very good", which made this variable less valuable than the self-rated health. We would also like to keep the model straightforward for the general audience to understand, so we select the self-rated health for further analysis.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.height=3, fig.width=5}
 dataset %>%
   na.omit() %>%
   group_by(feelings_life) %>%
@@ -77,7 +75,7 @@ dataset %>%
   labs(y="number of respondents")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.height=3, fig.width=5}
 dataset$self_rated_health <- factor(dataset$self_rated_health, levels = c("Don't know", "Poor", "Fair", "Good", "Very good", "Excellent"))
 
 dataset %>%
@@ -89,7 +87,7 @@ dataset %>%
   labs(y="number of respondents")
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.height=3, fig.width=5}
 dataset %>%
   na.omit() %>%
   ggplot(aes(x=age)) + 
