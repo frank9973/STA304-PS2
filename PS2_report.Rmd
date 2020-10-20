@@ -286,6 +286,8 @@ There are some imperfections in the overall study which were hard to avoid. One 
 
 We will update our dataset in the future, and strive to get more accurate data. For example, people's health data, we can apply to some government medical structures to get more accurate people's health data. Then, we will expand our sample population and strive to get a conclusion that is more representative of the public. We will try more other statistical models, such as Bayesian and hierarchical model, and find the best model for more detailed analysis
 
+# Appendix
+https://github.com/frank9973/STA304-PS2.git
 
 
 ## Reference
