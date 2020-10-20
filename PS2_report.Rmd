@@ -1,5 +1,5 @@
 ---
-title: "Title of Your Report"
+title: "Gain Happiness in Life: The Effect of Age and Self-evaluated Health Condition on Life Satisfaction"
 author: "Jiaheng Li, Heye Liu, Yan Wang, Yuxin Yang"
 date: "18/10/2020"
 output: 
@@ -17,7 +17,6 @@ raw_data <- read_csv("gss.csv")
 dataset <- raw_data %>% select(caseid, age, total_children, sex, feelings_life, marital_status, average_hours_worked, income_respondent, self_rated_health)
 ```
 
-# Gain Happiness in Life: The Effect of Age and Self-evaluated Health Condition on Life Satisfaction
 
 ### Jiaheng Li(lijiahe5, 1003825088), Heye Liu(liuheye1, 1004864694), Yan Wang(wang1154, 1004990183), Yuxin Yang(yangyu77, 1004834673)
 ### October 18, 2020
@@ -208,7 +207,6 @@ get_regression_table(model)
 
 In addition, we make four different bar plots to reflects the impact of physical fitness on people's feeling_life at different ages. In these plots, we use use (1, 2, 3, 4, 5)  to correspond to (poor, fair, good, verygood, excellent) in the variable self_rated_health. Moreover, The age groups of these four bar plots are 0-20, 20-40, 40-60 and 60-80 respectively.
 
-\newpage
 ### ***Figure1***:
 
 ```{r echo=FALSE}
@@ -230,7 +228,6 @@ ggplot(dd, aes(self_rated_health)) + geom_bar(aes(fill = feelings_life)) + ggtit
 
 For Figure1, we can see that in the ages of 0-20, the more healthy people are, the greater the percentage of those with a happiness index of 9 to 10. From the graph, we can clearly observe that the healthier people are at this age, the happier most of them will be in life.
 
-\newpage
 ### ***Figure2***:
 
 ```{r echo=FALSE}
@@ -306,6 +303,8 @@ We will update our dataset in the future, and strive to get more accurate data. 
   
 [9]Yihui Xie (2020). tinytex: Helper Functions to Install and Maintain 'TeX Live', and Compile 'LaTeX'
   Documents. R package version 0.21.
+  
+[10]Statistics Canada. (2017). General Social Survey On Family (Cycle 31), 2017 - Canadian General Social Surveys (GSS).. [online] Available at: <https://sda-artsci-utoronto-ca.myaccess.library.utoronto.ca/sdaweb/html/gss.htm>
 
 
 
